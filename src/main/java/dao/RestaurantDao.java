@@ -8,7 +8,7 @@ import java.util.List;
 public interface restaurantDao {
     //create
      void add(Restaurant restaurant); //J
-     //void addRestaurantToFoodType(Restaurant restaurant, Foodtype foodtype); //D & E
+     void addRestaurantToFoodType(Restaurant restaurant, Foodtype foodtype); //D & E
 
     //read
     //List<Restaurant> getAll(); //A
@@ -20,5 +20,5 @@ public interface restaurantDao {
    // void update(int id, String name, String address, String zipcode, String phone, String website, String email, String image); //L
 
     //delete
-   // void deleteById(int id); //K
+   void deleteById(int id); //K
 }

@@ -4,35 +4,32 @@ import models.Foodtype;
 import models.Restaurant;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 
 public class Sql2oRestaurantDaoTest {
     @Test
-    public void getAllFoodtypesForARestaurant() throws Exception {
-        Restaurant testRestaurant = setupRestaurant();
-        Restaurant altRestaurant = setupAltRestaurant();
-
-        restaurantDao.add(testRestaurant);
-        restaurantDao.add(altRestaurant);
-
-
-        Foodtype testFoodtype = setupNewFoodtype();
-
+    @Test
+    public void getAllFoodtypesForARestaurantReturnsFoodtypesCorrectly() throws Exception {
+        Foodtype testFoodtype  = new Foodtype("Seafood");
         foodtypeDao.add(testFoodtype);
 
-        foodtypeDao.addFoodtypeToRestaurant(testFoodtype, testRestaurant);
+        Foodtype otherFoodtype  = new Foodtype("Bar Food");
+        foodtypeDao.add(otherFoodtype);
 
-        foodtypeDao.addFoodtypeToRestaurant(testFoodtype, altRestaurant);
+        Restaurant testRestaurant = setupRestaurant();
+        restaurantDao.add(testRestaurant);
+        restaurantDao.addRestaurantToFoodtype(testRestaurant,testFoodtype);
+        restaurantDao.addRestaurantToFoodtype(testRestaurant,otherFoodtype);
 
-        assertEquals(2, foodtypeDao.getAllRestaurantsForAFoodtype(testFoodtype.getId()).size());
+        Foodtype[] foodtypes = {testFoodtype, otherFoodtype}; //oh hi what is this?
+
+        assertEquals(restaurantDao.getAllFoodtypesForARestaurant(testRestaurant.getId()), Arrays.asList(foodtypes));
     }
 
 
-
-
-
-}
 
 
     public Foodtype setupNewFoodtype(){

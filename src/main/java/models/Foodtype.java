@@ -5,6 +5,10 @@ public class Foodtype {
     private String name;
     private int id;
 
+    public Foodtype(String name) {
+        this.name = name;
+    }
+
     public Foodtype(String name, int id) {
         this.name = name;
         this.id = id;
